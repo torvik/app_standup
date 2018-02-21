@@ -20,19 +20,19 @@
                   th
               tbody
                 - @users.each do |user|
-                tr
-                  td= user.name
-                  td= user.email
-                  td= user.accepted_or_not_invited? ? "Active" : "Invited"
-                  td= user.account.roles&.first&.name&.capitalize
-                  td= user.created_at.strftime('%D')
-                  td
-                    = link_to 'Edit', edit_account_user_path(user),\
-                    class: 'btn btn-default btn-xs'
-                    = link_to 'Destroy', account_user_path(user),\
-                    {method: :delete, data: { confirm: 'Are you sure?' },\
-                    class: 'btn btn-warning btn-xs'} unless user.id == current_user.id
-                    
+                  tr
+                    td= user.name
+                    td= user.email
+                    td= user.accepted_or_not_invited? ? "Active" : "Invited"
+                    td= user.account.roles&.first&.name&.capitalize
+                    td= user.created_at.strftime('%D')
+                    td
+                      = link_to 'Edit', edit_account_user_path(user),\
+                      class: 'btn btn-default btn-xs'
+                      = link_to 'Destroy', account_user_path(user),\
+                      {method: :delete, data: { confirm: 'Are you sure?' },\
+                      class: 'btn btn-warning btn-xs'} unless user.id == current_user.id
+                      
         .box-footer style="height: 55px;"
           span.pull-right
             a.btn.btn-primary href="#{new_account_user_path}"

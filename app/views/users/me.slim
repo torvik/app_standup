@@ -11,8 +11,7 @@
             .box-body
               -if @user.errors.any?
                 .alert.alert-error.alert-block.alert-fixed
-                  h4= "#{pluralize(@user.errors.count, "error")}
-                   prohibited your information from being saved:"
+                  h4= "#{pluralize(@user.errors.count, "error")} prohibited your information from being saved:"
                   == @user.errors.full_messages.map{|msg|content_tag(:li, msg)}
                   .join
               .form-group
