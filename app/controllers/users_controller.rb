@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :set_users, only: [:index]
 
   def index
+
   end
 
   def show
@@ -11,28 +12,6 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     set_choices
-  end
-
-  def create
-    @user = User.unscoped.new(user_params.except("role"))
-    @user.account = current_account
-    @user.password = "password123"
-    respond_to do |format|
-    begin
-      if @user.valid? && @user.invite!(current_user)
-        @user.add_role user_params[:role].to_sym, current_account
-        format.html {
-        redirect_to account_users_path,
-        notice: 'User was successfully invited.'
-        }
-      else
-        format.html { render :new }
-      end
-      rescue ActiveRecord::RecordNotUnique
-        flash[:alert]= 'Email must be unique'
-        format.html { render :new}
-      end
-    end
   end
 
   def edit
@@ -76,6 +55,27 @@ class UsersController < ApplicationController
     end
   end
 
+  def create
+    @user = User.unscoped.new(user_params.except("role"))
+    @user.account = current_account
+    @user.password = "password123"
+    respond_to do |format|
+    begin
+      if @user.valid? && @user.invite!(current_user)
+        @user.add_role user_params[:role].to_sym, current_account
+        format.html {
+        redirect_to account_users_path,
+        notice: 'User was successfully invited.'
+        }
+      else
+        format.html { render :new }
+      end
+      rescue ActiveRecord::RecordNotUnique
+        flash[:alert]= 'Email must be unique'
+        format.html { render :new}
+      end
+    end
+  end
 
   def update
     respond_to do |format|
@@ -102,13 +102,16 @@ class UsersController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
     def set_users
       @users = current_account.users
     end
+
     def set_user
       @user = User.friendly.find(params[:id])
     end
+    
     def set_choices
       @choices = []
       @choices << ["Admin", 'admin']
