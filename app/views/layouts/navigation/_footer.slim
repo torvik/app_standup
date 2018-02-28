@@ -1,7 +1,8 @@
-footer.main-footer
-  .pull-right.hidden-xs
-    | Anything you want
-  strong
-    | Copyright © 2016
-    a href="#" Company
-  | All rights reserved.
+footer.main-footer{
+  class="#{'full-footer' unless @team.present? && !@team.id.nil?}"}
+    .pull-right.hidden-xs
+      | Anything you want
+    strong
+      | Copyright © 2018
+      a href="#" Company
+    | All rights reserved.

@@ -14,7 +14,8 @@ HTML
   body.fixed.skin-blue-light
     .wrapper
       = render 'layouts/navigation/layout'
-      .content-wrapper
-        = flash_messages
-        = yield
+      .content-wrapper{
+        class="#{'no-team' unless @team.present? && !@team.id.nil?}"}
+          = flash_messages
+          = yield
       = render 'layouts/navigation/footer'

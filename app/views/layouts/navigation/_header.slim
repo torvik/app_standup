@@ -2,6 +2,11 @@ header.main-header
   a.logo href="/"
     | Standup App
   nav.navbar.navbar-static-top role="navigation"
+    .pull-left
+      a.logo href="/t"
+        | Teams
+      a.logo href="/s"
+        | Standups
     .navbar-custom-menu
       ul.nav.navbar-nav
         li.dropdown.messages-menu
@@ -65,23 +70,18 @@ header.main-header
         li.dropdown.user.user-menu
           a.dropdown-toggle data-toggle="dropdown" href="#"
             img.user-image alt=("User Image") src="http://placehold.it/160x160"
-            span.hidden-xs Alexander Pierce
+            span.hidden-xs = current_user.name
           ul.dropdown-menu
-            li.user-header
-              img.img-circle [ alt=("User Image")
-              src="http://placehold.it/160x160" ]
-              p
-                | Alexander Pierce - Web Developer
-                small Member since Nov. 2012
+            li.header= current_user.name
             li.user-body
-              .col-xs-4.text-center
-                a href="#"  Followers
-              .col-xs-4.text-center
-                a href="#"  Sales
-              .col-xs-4.text-center
-                a href="#"  Friends
+            li
+              a href="/user/me" 
+                | Profile
+            li
+              a href="/account/users"
+                | Settings
             li.user-footer
               .pull-left
-                a.btn.btn-default.btn-flat href="#"  Profile
-              .pull-right
-                a.btn.btn-default.btn-flat href="#"  Sign out
+                 = link_to(destroy_user_session_path, :method => :delete) do
+                   i.fa.fa-sign-out
+                   | Log out
