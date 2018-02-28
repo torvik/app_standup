@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180226191133) do
+ActiveRecord::Schema.define(version: 20180228170610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,11 +23,11 @@ ActiveRecord::Schema.define(version: 20180226191133) do
     t.string   "state"
     t.string   "zip"
     t.string   "country"
-    t.string   "has_id"
     t.jsonb    "settings",   default: "{}", null: false
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
-    t.index ["has_id"], name: "index_accounts_on_has_id", using: :btree
+    t.string   "hash_id"
+    t.index ["hash_id"], name: "index_accounts_on_hash_id", using: :btree
     t.index ["settings"], name: "index_accounts_on_settings", using: :gin
   end
 

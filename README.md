@@ -1,24 +1,29 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Configurando o novo ambiente 
 
-Things you may want to cover:
+* Install 
 
-* Ruby version
+* Vagrant 
 
-* System dependencies
+* box "bento/ubuntu-16.04" 
 
-* Configuration
+* RVM  - curl -sSL https://get.rvm.io | bash -s stable --ruby
 
-* Database creation
+* Ruby - rvm install 2.4.3
 
-* Database initialization
+* Rails -  gem install rails -v 5.0.1
 
-* How to run the test suite
+* PG - sudo apt-get install postgresql   
+     - sudo apt-get install libpq-dev
+     - gem install pg
+     - sudo -u postgres psql -c "CREATE USER vagrant WITH SUPERUSER CREATEDB ENCRYPTED PASSWORD 'vagrant'"
+     - sudo sed -i "s/port = 5433/port = 5432/" /etc/postgresql/9.3/main/postgresql.conf
 
-* Services (job queues, cache servers, search engines, etc.)
+* GIT - sudo apt-get install git
 
-* Deployment instructions
+      - git config --global user.name "<name>"
+      - git config --global user.email "<e-mail>"
 
-* ...
+* NODEJS - sudo apt-get install nodejs
+
