@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180228170610) do
+ActiveRecord::Schema.define(version: 20180306160938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,21 @@ ActiveRecord::Schema.define(version: 20180228170610) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.index ["user_id"], name: "index_standups_on_user_id", using: :btree
+  end
+
+  create_table "task_memberships", force: :cascade do |t|
+    t.integer "task_id"
+    t.integer "standup_id"
+    t.index ["standup_id"], name: "index_task_memberships_on_standup_id", using: :btree
+    t.index ["task_id"], name: "index_task_memberships_on_task_id", using: :btree
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string   "type"
+    t.string   "title"
+    t.boolean  "is_completed"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "team_memberships", force: :cascade do |t|
@@ -126,6 +141,8 @@ ActiveRecord::Schema.define(version: 20180228170610) do
 
   add_foreign_key "days_of_the_week_memberships", "teams"
   add_foreign_key "standups", "users"
+  add_foreign_key "task_memberships", "standups"
+  add_foreign_key "task_memberships", "tasks"
   add_foreign_key "team_memberships", "teams"
   add_foreign_key "team_memberships", "users"
   add_foreign_key "teams", "accounts"
