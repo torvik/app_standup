@@ -65,7 +65,7 @@ class StandupsController < ApplicationController
     @standup.destroy
     respond_to do |format|
       format.html { redirect_to standups_url, notice: 'Standup was successfully destroyed.' }
-      format.json { head :no_content }
+      format.json { head :no_content }  
     end
   end
 
@@ -97,10 +97,9 @@ class StandupsController < ApplicationController
       user_id: current_user.id, standup_date: current_date
       )
       if standup.present? && action_name == 'new'
-      redirect_to(edit_standup_path(date: current_date)) and return true
+        redirect_to(sedit_standup_path(date: current_date)) and return true
       elsif standup.nil? && action_name == 'edit'
-      redirect_to(new_standup_path(date: current_date)) and return true
+        redirect_to(snew_standup_path(date: current_date)) and return true
       end
     end
-
-end
+  end
