@@ -43,6 +43,7 @@ gem 'premailer-rails'
 gem 'griddler'
 gem 'griddler-mailgun'
 gem 'rollbar'
+gem 'cocoon'
 
 group :development, :test do
   gem 'byebug', platform: :mri
