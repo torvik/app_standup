@@ -1,17 +1,24 @@
 class TeamsController < ApplicationController
   load_and_authorize_resource find_by: :hash_id, except: [:create]
-    
+  around_action :use_time_zone, only: [:edit]
+
     def index
         @teams = visible_teams
     end
     
     def show
-        @team = Team.friendly.includes(:users).find(params[:id])
+        set_teams_and_standups(Date.today.iso8601)
+        #@team = Team.friendly.includes(:users).find(params[:id])
     end
-    
+
+    def standups
+        set_teams_and_standups(current_date)
+    end
+
     def new
         @team = Team.new
     end
+    
     
     def create
         @team = Team.new(team_params.except("days"))
@@ -90,6 +97,15 @@ class TeamsController < ApplicationController
             ActiveSupport::TimeZone[@team.timezone]
             .parse(@team.recap_time.to_s[11..18])
             .utc
+        end
+
+        def set_teams_and_standups(date)
+            @team = Team.friendly.includes(:users).find(params[:id])
+            @standups = @team.users.flat_map do |u|
+              u.standups.where(standup_date: date)
+              .includes(:dids, :todos, :blockers)
+              .references(:tasks)
+            end
         end
 
 end

@@ -12,10 +12,10 @@ table
   tbody
     - @standups.each do |standup|
       tr
-        td = standup.user
-        td = standup.standup_date
+        td = standup.user.name 
+        td = standup.standup_date 
         td = link_to 'Show', standup
-        td = link_to 'Edit', edit_standup_path(standup)
+        td = link_to 'Edit', sedit_standup_path(standup)
         td = link_to 'Destroy', standup, data: { confirm: 'Are you sure?' }, method: :delete
 
 br

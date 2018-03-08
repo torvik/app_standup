@@ -19,6 +19,22 @@ class UsersController < ApplicationController
     set_choices
   end
 
+  def standups
+    @user =
+      User
+      .friendly
+      .find(params[:id])
+    @standups =
+      @user
+      .standups
+      .includes(:dids, :todos, :blockers)
+      .references(:tasks)
+      .order('standup_date DESC')
+      .page(params[:page])
+      .per(6)
+  end
+
+
   def me
     @user = current_user
   end
@@ -102,11 +118,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def standups
-    @user = User.friendly.find(params[:id])
-    @standups = @user.standups.includes(:dids, :todos, :blockers).references(:tasks).order('standup_date DESC')
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -116,8 +127,6 @@ class UsersController < ApplicationController
 
     def set_user
       @user = User.friendly.find(params[:id])
-      #@user = User.find(params[:id])
-      
     end
     
     def set_choices

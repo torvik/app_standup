@@ -1,10 +1,10 @@
 p#notice = notice
 
 p
-  strong User:
-  = @standup.user
+  strong User: 
+  = @standup.user.name
 p
-  strong Standup date:
+  strong Standup date: 
   = @standup.standup_date
 
 => link_to 'Edit', edit_standup_path(@standup)
